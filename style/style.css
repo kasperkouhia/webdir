@@ -89,10 +89,12 @@ li > ul {
 }
 .info {
     display: flex;
+    flex-grow: 1;
     align-items: center;
     font-weight: 700;
 }
 .info a {
+    width: 100%;
     color: var(--main-stroke-color);
     text-decoration: none;
 }
@@ -120,7 +122,8 @@ li > ul {
     box-sizing: border-box;
     height: 2.5em;
     width: 2.5em;
-    margin-left: auto;
+    margin-left: 1em;
+    flex-shrink: 0;
     border: 0.25em solid var(--main-stroke-color);
     border-radius: 0.5em;
     background: none;
