@@ -34,7 +34,7 @@ function generate_list_elements(list, cdir = "", recursive = false) {
         const separator = "-";
         item_id = `${cdir}-${item_content}`.replaceAll(".", separator);
         item_path = `/${cdir.replaceAll(separator, "/")}/${item_content}`;
-        list_item.innerHTML = `<div id="${item_id}" class="${item_class}"><div class="${classes.info}"><a href="${item_path}">${item_content}</a></div></div>`;
+        list_item.innerHTML = `<div id="${item_id}" class="${item_class}"><div class="${classes.info}"><a href="${item_path}" target="_blank">${item_content}</a></div></div>`;
         if (typeof list[item] === "object" && Object.keys(list[item]).length > 0) {
             list_item.querySelector(`.${item_class}`).innerHTML += `<button class="${classes.accordion} ${accordion_state}" type="button" onclick="toggle_list_display(this)"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 12H18M12 6V18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
             list_item.appendChild(generate_list_elements(list[item], item_id, true));
