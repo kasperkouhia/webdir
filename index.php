@@ -45,6 +45,6 @@
         </footer>
     </div>
     <script src="app/app.js"></script>
-    <script>document.querySelector("#main").appendChild(generate_list_elements(<?= json_encode(list_dir_contents($target))?>, "<?= $target?>"));</script>
+    <script>document.querySelector("#main").appendChild(generateListElements(<?= json_encode(list_dir_contents($target))?>, "<?= $target?>"));</script>
 </body>
 </html>

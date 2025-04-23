@@ -10,49 +10,49 @@ const classes = {
     hide: "hide"
 }
 
-function generate_list_elements(list, cdir = "", recursive = false) {
-    const list_elements = document.createElement("ul");
-    let list_display_state, accordion_state;
+function generateListElements(list, cdir = "", recursive = false) {
+    const listElements = document.createElement("ul");
+    let listDisplayState, accordionState;
     if (recursive) {
-        list_display_state = classes.hide;
-        accordion_state = classes.closed;
+        listDisplayState = classes.hide;
+        accordionState = classes.closed;
     } else {
-        list_display_state = classes.display;
-        accordion_state = classes.open;
+        listDisplayState = classes.display;
+        accordionState = classes.open;
     }
-    list_elements.classList.add(classes.list, list_display_state);
-    let list_item, item_content, item_class, item_id, item_path;
+    listElements.classList.add(classes.list, listDisplayState);
+    let listItem, itemContent, itemClass, itemId, itemPath;
     for (const item in list) {
-        list_item = document.createElement("li");
+        listItem = document.createElement("li");
         if (typeof list[item] === "string") {
-            item_content = list[item];
-            item_class = classes.file;
+            itemContent = list[item];
+            itemClass = classes.file;
         } else {
-            item_content = item;
-            item_class = classes.dir;
+            itemContent = item;
+            itemClass = classes.dir;
         }
         const separator = "-";
-        item_path = `${cdir}/${item_content}`;
-        item_id = item_path.replaceAll(".", separator).replaceAll("/", separator);
-        list_item.innerHTML = `<div id="${item_id}" class="${item_class}"><div class="${classes.info}"><a href="${item_path}" target="_blank">${item_content}</a></div></div>`;
+        itemPath = `${cdir}/${itemContent}`;
+        itemId = itemPath.replaceAll(".", separator).replaceAll("/", separator);
+        listItem.innerHTML = `<div id="${itemId}" class="${itemClass}"><div class="${classes.info}"><a href="${itemPath}" target="_blank">${itemContent}</a></div></div>`;
         if (typeof list[item] === "object" && Object.keys(list[item]).length > 0) {
-            list_item.querySelector(`.${item_class}`).innerHTML += `<button class="${classes.accordion} ${accordion_state}" type="button" onclick="toggle_list_display(this)"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 12H18M12 6V18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
-            list_item.appendChild(generate_list_elements(list[item], item_path, true));
+            listItem.querySelector(`.${itemClass}`).innerHTML += `<button class="${classes.accordion} ${accordionState}" type="button" onclick="toggleListDisplay(this)"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 12H18M12 6V18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
+            listItem.appendChild(generateListElements(list[item], itemPath, true));
         }
-        list_elements.appendChild(list_item);
+        listElements.appendChild(listItem);
     }
-    return list_elements;
+    return listElements;
 }
 
-function toggle_list_display(source) {
-    const dir_content = source.parentNode.parentNode.querySelector(`.${classes.list}`);
-    if (source.classList.contains(classes.open) && dir_content.classList.contains(classes.display)) {
+function toggleListDisplay(source) {
+    const dirContent = source.parentNode.parentNode.querySelector(`.${classes.list}`);
+    if (source.classList.contains(classes.open) && dirContent.classList.contains(classes.display)) {
         source.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 12H18M12 6V18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
         source.classList.replace(classes.open, classes.closed);
-        dir_content.classList.replace(classes.display, classes.hide);
+        dirContent.classList.replace(classes.display, classes.hide);
     } else {
         source.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 12L18 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
         source.classList.replace(classes.closed, classes.open);
-        dir_content.classList.replace(classes.hide, classes.display);
+        dirContent.classList.replace(classes.hide, classes.display);
     }
 }
